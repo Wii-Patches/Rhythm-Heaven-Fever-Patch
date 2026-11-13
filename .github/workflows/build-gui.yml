@@ -99,7 +99,7 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt "pyinst_dist/RHF-Patcher.app/Contents/Resources/wit-gpl-2.0.txt"
           cd pyinst_dist
-          zip -qr "../Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.zip" RHF-Patcher.app
+          zip -qr "../Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.zip" RHF-Patcher.app
 
       - name: Build app (Linux)
         if: matrix.target == 'linux-x86_64'
@@ -112,7 +112,7 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt pyinst_dist/RHF-Patcher/
           cd pyinst_dist
-          tar -czf "../Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.tar.gz" RHF-Patcher
+          tar -czf "../Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.tar.gz" RHF-Patcher
 
       - name: Build app (Windows)
         if: matrix.target == 'windows-x86_64'
@@ -127,19 +127,19 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt pyinst_dist/RHF-Patcher/
           cd pyinst_dist
-          7z a "../Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.zip" RHF-Patcher \
-            || powershell -Command "Compress-Archive -Path RHF-Patcher -DestinationPath ../Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.zip"
+          7z a "../Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.zip" RHF-Patcher \
+            || powershell -Command "Compress-Archive -Path RHF-Patcher -DestinationPath ../Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.zip"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Rhythm-Heaven-Fever-Patch-${{ matrix.target }}
-          path: Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.*
+          name: Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}
+          path: Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.*
 
       - name: Attach to release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: Rhythm-Heaven-Fever-Patch-${{ matrix.target }}.*
+          files: Rhythm-Heaven-Fever-ISO-Patcher-${{ matrix.target }}.*
 
   patch-files:
     needs: check
